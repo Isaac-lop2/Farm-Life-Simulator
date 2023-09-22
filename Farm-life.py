@@ -1,5 +1,3 @@
-#Cuidado de Animales
-
 class Animales:
     def __init__ (self, tipo_animal, nombre_animal, edad_animal, peso_animal):
         self.tipo_animal = tipo_animal
@@ -129,6 +127,3 @@ while True:
         break
     else:
         print('Ingrese una opcion valida')
-
-
-
