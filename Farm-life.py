@@ -1,20 +1,35 @@
-#Cuidado de Animales
+import random
 
 class Animales:
-    def __init__ (self, tipo_animal, nombre_animal, edad_animal, peso_animal):
-        self.tipo_animal = tipo_animal
-        self.nombre_animal = nombre_animal
-        self.edad_animal = edad_animal
-        self.peso_animal = peso_animal
+    def __init__ (self, nombre, salud, felicidad, hambre, produccion):
+        self.nombre = nombre 
+        self.salud = salud
+        self.felicidad = felicidad
+        self.hambre = hambre
+        self.produccion = produccion
 
-    def ingresar_datos(self):
-        self.tipo_animal = input('Ingrese el tipo de animal: ')
-        self.nombre_animal = input('Ingrese el nombre del animal: ')
-        self.edad_animal = input('Ingrese la edad del animal: ')
-        self.peso_animal = input('Ingrese el peso del animal: ')
+    def alimentar(self):
+        self.hambre = 100
+        self.salud += 10
+        self.felicidad += 10
+
+    def acariciar(self):
+        self.felicidad = 100
+        self.salud += 10
+
+    def limpiar(self):
+        self.salud += 10
+
+    def recolectar(self):
+        self.produccion = 100
+        self.salud += 10
+        self.felicidad += 10
 
     def mostrar(self):
-        print('Tipo de animal:', self.tipo_animal, '   Nombre del animal:', self.nombre_animal, '   Edad del animal:', self.edad_animal, '   Peso del animal:', self.peso_animal)
+        print('Nombre:', self.nombre, '   Salud:', self.salud, '   Felicidad:', self.felicidad, '   Hambre:', self.hambre, '   Produccion:', self.produccion)
+        
+
+   
 
 
 class Vacas(Animales):
