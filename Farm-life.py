@@ -1,149 +1,270 @@
 import random
 
-class Animales:
-    def __init__ (self, nombre, salud, felicidad, hambre, produccion):
-        self.nombre = nombre 
+
+class Animal:
+    def __init__(self, nombre, salud, hambre, felicidad, produccion):
+        self.nombre = nombre
         self.salud = salud
-        self.felicidad = felicidad
         self.hambre = hambre
+        self.felicidad = felicidad
         self.produccion = produccion
+        self.enfermo = False  # Nuevo atributo para indicar si el animal está enfermo
+
+    def reset_estado(self):
+        self.salud = 0
+        self.hambre = 100
+        self.felicidad = 0
+        self.produccion = 0
+        self.enfermo = False
 
     def alimentar(self):
-        self.hambre = 100
-        self.salud += 10
-        self.felicidad += 10
+        self.hambre -= random.randint(5, 15)
+        self.salud += random.randint(1, 5)
+        self.felicidad += random.randint(1, 5)
+        self.hambre = max(0, self.hambre)
+        self.enfermo = False  # El animal se cura cuando se alimenta
 
     def acariciar(self):
-        self.felicidad = 100
-        self.salud += 10
+        self.felicidad += random.randint(5, 10)
+        self.produccion += random.randint(1, 5)
 
     def limpiar(self):
-        self.salud += 10
+        self.felicidad += random.randint(1, 5)
 
-    def recolectar(self):
-        self.produccion = 100
-        self.salud += 10
-        self.felicidad += 10
+    def actualizar(self):
+        self.hambre += random.randint(1, 10)
+        self.salud -= random.randint(1, 5)
+        self.felicidad -= random.randint(1, 5)
+        self.produccion -= random.randint(1, 3)
+        self.produccion = max(0, self.produccion)
+        self.hambre = max(0, self.hambre)
 
-    def mostrar(self):
-        print('Nombre:', self.nombre, '   Salud:', self.salud, '   Felicidad:', self.felicidad, '   Hambre:', self.hambre, '   Produccion:', self.produccion)
-        
+        # El animal tiene una probabilidad de enfermarse si no se cuida adecuadamente
+        if self.salud < 50 and random.random() < 0.3:
+            self.enfermo = True
+            self.produccion *= 0.5  # Disminuir la producción si está enfermo
+            self.felicidad *= 0.7  # Disminuir la felicidad si está enfermo
 
-   
-
-
-class Vacas(Animales):
-    def __init__(self, tipo_animal, nombre_animal, edad_animal, peso_animal, color_vaca, raza_vaca):
-        super().__init__(tipo_animal, nombre_animal, edad_animal, peso_animal)
-        self.color_vaca = color_vaca
-        self.raza_vaca = raza_vaca
-
-    def ingresar_datos_vaca(self):
-        self.color_vaca = input('Ingrese el color de la vaca: ')
-        self.raza_vaca = input('Ingrese la raza de la vaca: ')
-
-    def mostrar_vaca(self):
-        print('Color de la vaca:', self.color_vaca, '   Raza de la vaca:', self.raza_vaca)
-    
-
-class Gallinas(Animales):
-    def __init__(self, tipo_animal, nombre_animal, edad_animal, peso_animal, color_gallina, raza_gallina):
-        super().__init__(tipo_animal, nombre_animal, edad_animal, peso_animal)
-        self.color_gallina = color_gallina
-        self.raza_gallina = raza_gallina
-
-    def ingresar_datos_gallina(self):
-        self.color_gallina = input('Ingrese el color de la gallina: ')
-        self.raza_gallina = input('Ingrese la raza de la gallina: ')
-
-    def mostrar_gallina(self):
-        print('Color de la gallina:', self.color_gallina, '   Raza de la gallina:', self.raza_gallina)
-    
-
-class Caballos(Animales):
-    def __init__(self, tipo_animal, nombre_animal, edad_animal, peso_animal, color_caballo, raza_caballo):
-        super().__init__(tipo_animal, nombre_animal, edad_animal, peso_animal)
-        self.color_caballo = color_caballo
-        self.raza_caballo = raza_caballo
-
-    def ingresar_datos_caballo(self):
-        self.color_caballo = input('Ingrese el color del caballo: ')
-        self.raza_caballo = input('Ingrese la raza del caballo: ')
-
-    def mostrar_caballo(self):
-        print('Color del caballo:', self.color_caballo, '   Raza del caballo:', self.raza_caballo)
+        # Restringir los valores dentro del rango apropiado
+        self.salud = max(0, self.salud)
+        self.felicidad = max(0, self.felicidad)
 
 
-class Ovejas(Animales):
-    def __init__(self, tipo_animal, nombre_animal, edad_animal, peso_animal, color_oveja, raza_oveja):
-        super().__init__(tipo_animal, nombre_animal, edad_animal, peso_animal)
-        self.color_oveja = color_oveja
-        self.raza_oveja = raza_oveja
+class Jugador:
+    def __init__(self):
+        self.experiencia = 0
 
-    def ingresar_datos_oveja(self):
-        self.color_oveja = input('Ingrese el color de la oveja: ')
-        self.raza_oveja = input('Ingrese la raza de la oveja: ')
+    def aumentar_experiencia(self, cantidad):
+        self.experiencia += cantidad
 
-    def mostrar_oveja(self):
-        print('Color de la oveja:', self.color_oveja, '   Raza de la oveja:', self.raza_oveja)
-    
+    def mostrar_experiencia(self):
+        print(f"Experiencia actual: {self.experiencia}")
 
-while True:
-    print('1. Ingresar datos de los animales')
-    print('2. Mostrar datos de los animales')
-    print('3. Salir')
-    opcion = int(input('Ingrese una opcion: '))
 
-    if opcion == 1:
-        print('1. Ingresar datos de las vacas')
-        print('2. Ingresar datos de las gallinas')
-        print('3. Ingresar datos de los caballos')
-        print('4. Ingresar datos de las ovejas')
-        opcion = int(input('Ingrese una opcion: '))
+class Perro(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 100, 0, 70, 0)
 
-        if opcion == 1:
-            vaca1 = Vacas('', '', '', '', '', '')
-            vaca1.ingresar_datos()
-            vaca1.ingresar_datos_vaca()
-        elif opcion == 2:
-            gallina1 = Gallinas('', '', '', '', '', '')
-            gallina1.ingresar_datos()
-            gallina1.ingresar_datos_gallina()
-        elif opcion == 3:
-            caballo1 = Caballos('', '', '', '', '', '')
-            caballo1.ingresar_datos()
-            caballo1.ingresar_datos_caballo()
-        elif opcion == 4:
-            oveja1 = Ovejas('', '', '', '', '', '')
-            oveja1.ingresar_datos()
-            oveja1.ingresar_datos_oveja()
+
+class Caballo(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 90, 0, 70, 0)
+
+
+class Gallina(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 70, 0, 70, 0)
+
+    def poner_huevos(self):
+        return random.randint(3, 5)
+
+
+class Pato(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 80, 0, 70, 0)
+
+    def poner_huevos(self):
+        return random.randint(2, 4)
+
+
+class Vaca(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 100, 0, 50, 0)
+
+    def producir_leche(self):
+        return random.randint(5, 10)
+
+
+class Cerdo(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 90, 0, 60, 0)
+
+    def producir_carne(self):
+        return random.randint(5, 8)
+
+
+class Oveja(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 80, 0, 60, 0)
+
+    def producir_lana(self):
+        return random.randint(1, 3)
+
+
+class Conejo(Animal):
+    def __init__(self, nombre):
+        super().__init__(nombre, 70, 0, 50, 0)
+
+
+def mostrar_menu():
+    print("\n--- Granja de Animales ---")
+    print("1. Ver estado de los animales")
+    print("2. Alimentar animales")
+    print("3. Acariciar animales")
+    print("4. Limpiar animales")
+    print("5. Recolectar recursos")
+    print("6. Mostrar experiencia (XP)")
+    print("7. Reiniciar estado de los animales")
+    print("8. Salir")
+
+
+def mostrar_avance(animal, antes):
+    print(f"\nAntes de la interacción con {animal.nombre}:")
+    print(
+        f"Salud: {antes['salud']}, Hambre: {antes['hambre']}, Felicidad: {antes['felicidad']}, Producción: {antes['produccion']}")
+    print(f"Después de la interacción con {animal.nombre}:")
+    print(
+        f"Salud: {animal.salud}, Hambre: {animal.hambre}, Felicidad: {animal.felicidad}, Producción: {animal.produccion}")
+
+
+def recolectar_recursos(animales):
+    recursos_totales = 0
+    for animal in animales:
+        if isinstance(animal, Gallina):
+            huevos = animal.poner_huevos()
+            recursos_totales += huevos
+            animal.produccion -= huevos
+        elif isinstance(animal, Pato):
+            huevos = animal.poner_huevos()
+            recursos_totales += huevos
+            animal.produccion -= huevos
+        elif isinstance(animal, Vaca):
+            leche = animal.producir_leche()
+            recursos_totales += leche
+            animal.produccion -= leche
+        elif isinstance(animal, Cerdo):
+            carne = animal.producir_carne()
+            recursos_totales += carne
+            animal.produccion -= carne
+        elif isinstance(animal, Oveja):
+            lana = animal.producir_lana()
+            recursos_totales += lana
+            animal.produccion -= lana
+    return recursos_totales
+
+
+def alimentar_animales(animales):
+    print("\n--- Alimentar animales ---")
+    for i, animal in enumerate(animales, 1):
+        print(f"{i}. {animal.nombre}")
+    seleccion = input("Selecciona los animales que deseas alimentar (separados por comas): ")
+    indices = [int(idx) - 1 for idx in seleccion.split(",")]
+    for idx in indices:
+        if 0 <= idx < len(animales):
+            animal = animales[idx]
+            antes = {'salud': animal.salud, 'hambre': animal.hambre, 'felicidad': animal.felicidad,
+                     'produccion': animal.produccion}
+            animal.alimentar()
+            mostrar_avance(animal, antes)
+
+
+def acariciar_animales(animales):
+    print("\n--- Acariciar animales ---")
+    for i, animal in enumerate(animales, 1):
+        print(f"{i}. {animal.nombre}")
+    seleccion = input("Selecciona los animales que deseas acariciar (separados por comas): ")
+    indices = [int(idx) - 1 for idx in seleccion.split(",")]
+    for idx in indices:
+        if 0 <= idx < len(animales):
+            animal = animales[idx]
+            antes = {'salud': animal.salud, 'hambre': animal.hambre, 'felicidad': animal.felicidad,
+                     'produccion': animal.produccion}
+            animal.acariciar()
+            mostrar_avance(animal, antes)
+
+
+def limpiar_animales(animales):
+    print("\n--- Limpiar animales ---")
+    for i, animal in enumerate(animales, 1):
+        print(f"{i}. {animal.nombre}")
+    seleccion = input("Selecciona los animales que deseas limpiar (separados por comas): ")
+    indices = [int(idx) - 1 for idx in seleccion.split(",")]
+    for idx in indices:
+        if 0 <= idx < len(animales):
+            animal = animales[idx]
+            antes = {'salud': animal.salud, 'hambre': animal.hambre, 'felicidad': animal.felicidad,
+                     'produccion': animal.produccion}
+            animal.limpiar()
+            mostrar_avance(animal, antes)
+
+
+def reiniciar_estado(animales):
+    for animal in animales:
+        animal.reset_estado()
+    print("El estado de los animales ha sido reiniciado.")
+
+
+def main():
+    animales = []
+    animales.append(Perro("Perro"))
+    animales.append(Caballo("Caballo"))
+    animales.append(Gallina("Gallina"))
+    animales.append(Pato("Pato"))
+    animales.append(Vaca("Vaca"))
+    animales.append(Cerdo("Cerdo"))
+    animales.append(Oveja("Oveja"))
+    animales.append(Conejo("Conejo"))
+
+    jugador = Jugador()
+
+    while True:
+        mostrar_menu()
+        opcion = input("Selecciona una opción: ")
+
+        if opcion == '1':
+            print("\n--- Estado de los animales ---")
+            for i, animal in enumerate(animales, 1):
+                estado = "Enfermo" if animal.enfermo else "Saludable"
+                print(
+                    f"{i}. {animal.nombre} - Salud: {animal.salud}, Hambre: {animal.hambre}, Felicidad: {animal.felicidad}, Producción: {animal.produccion}, Estado: {estado}")
+        elif opcion == '2':
+            alimentar_animales(animales)
+            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal alimentado
+        elif opcion == '3':
+            acariciar_animales(animales)
+            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal acariciado
+        elif opcion == '4':
+            limpiar_animales(animales)
+            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal limpiado
+        elif opcion == '5':
+            recursos_obtenidos = recolectar_recursos(animales)
+            print(f"\nHas recolectado {recursos_obtenidos} recursos de los animales.")
+            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por recolectar recursos
+        elif opcion == '6':
+            jugador.mostrar_experiencia()
+        elif opcion == '7':
+            reiniciar_estado(animales)
+        elif opcion == '8':
+            print("¡Gracias por jugar! Saliendo del juego.")
+            break
         else:
-            print('Ingrese una opcion valida')
-    elif opcion == 2:
-        print('1. Mostrar datos de las vacas')
-        print('2. Mostrar datos de las gallinas')
-        print('3. Mostrar datos de los caballos')
-        print('4. Mostrar datos de las ovejas')
-        opcion = int(input('Ingrese una opcion: '))
+            print("Opción inválida. Por favor, elige una opción válida.")
 
-        if opcion == 1:
-            vaca1.mostrar()
-            vaca1.mostrar_vaca()
-        elif opcion == 2:
-            gallina1.mostrar()
-            gallina1.mostrar_gallina()
-        elif opcion == 3:
-            caballo1.mostrar()
-            caballo1.mostrar_caballo()
-        elif opcion == 4:
-            oveja1.mostrar()
-            oveja1.mostrar_oveja()
-        else:
-            print('Ingrese una opcion valida')
-    elif opcion == 3:
-        break
-    else:
-        print('Ingrese una opcion valida')
+        for animal in animales:
+            animal.actualizar()
 
+
+if __name__ == "__main__":
+    main()
 
 
