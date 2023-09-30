@@ -325,90 +325,91 @@ def main():
         elif opcion == '7':
             reiniciar_estado(animales)
         elif opcion == '8':
-            print("¡Gracias por jugar! Saliendo del juego.")
             break
         else:
             print("Opción inválida. Por favor, elige una opción válida.")
 
         for animal in animales:
             animal.actualizar()
+while True:
+    Main_menu=input("que desea Gestionar?\nA.Cultivos\nB.Animales")
+    if Main_menu.upper() == "A":
+        while True:
+            print("\nMenú:")
+            print("1. Sembrar cultivo")
+            print("2. Regar cultivo")
+            print("3. Cosechar cultivo")
+            print("4. Aplicar fertilizante")
+            print("5. Tratar plagas")
+            print("6. Salir")
+            opcion = input("Selecciona una opción: ")
 
-Main_menu=input("que desea Gestionar?\nA.Cultivos\nB.Animales")
-if Main_menu.upper() == "A":
-    while True:
-        print("\nMenú:")
-        print("1. Sembrar cultivo")
-        print("2. Regar cultivo")
-        print("3. Cosechar cultivo")
-        print("4. Aplicar fertilizante")
-        print("5. Tratar plagas")
-        print("6. Salir")
-        opcion = input("Selecciona una opción: ")
+            if opcion == "1":
+                cultivo = int(input("Selecciona un cultivo para sembrar (1-5): "))
+                if cultivo == 1:
+                    cultivo1.sembrar()
+                elif cultivo == 2:
+                    cultivo2.sembrar()
+                elif cultivo == 3:
+                    cultivo3.sembrar()
+                elif cultivo == 4:
+                    cultivo4.sembrar()
+                elif cultivo == 5:
+                    cultivo5.sembrar()
+                else:
+                    print("Opción no válida.")
 
-        if opcion == "1":
-            cultivo = int(input("Selecciona un cultivo para sembrar (1-5): "))
-            if cultivo == 1:
-                cultivo1.sembrar()
-            elif cultivo == 2:
-                cultivo2.sembrar()
-            elif cultivo == 3:
-                cultivo3.sembrar()
-            elif cultivo == 4:
-                cultivo4.sembrar()
-            elif cultivo == 5:
-                cultivo5.sembrar()
-            else:
-                print("Opción no válida.")
+            elif opcion == "2":
+                cultivo = int(input("Selecciona un cultivo para regar (1-5): "))
+                if cultivo == 1:
+                    cultivo1.regar()
+                elif cultivo == 2:
+                    cultivo2.regar()
+                elif cultivo == 3:
+                    cultivo3.regar()
+                elif cultivo == 4:
+                    cultivo4.regar()
+                elif cultivo == 5:
+                    cultivo5.regar()
+                else:
+                    print("Opción no válida.")
 
-        elif opcion == "2":
-            cultivo = int(input("Selecciona un cultivo para regar (1-5): "))
-            if cultivo == 1:
-                cultivo1.regar()
-            elif cultivo == 2:
-                cultivo2.regar()
-            elif cultivo == 3:
-                cultivo3.regar()
-            elif cultivo == 4:
-                cultivo4.regar()
-            elif cultivo == 5:
-                cultivo5.regar()
-            else:
-                print("Opción no válida.")
+            elif opcion == "3":
+                cultivo = int(input("Selecciona un cultivo para cosechar (1-5): "))
+                if cultivo == 1:
+                    cultivo1.cosechar()
+                elif cultivo == 2:
+                    cultivo2.cosechar()
+                elif cultivo == 3:
+                    cultivo3.cosechar()
+                elif cultivo == 4:
+                    cultivo4.cosechar()
+                elif cultivo == 5:
+                    cultivo5.cosechar()
+                else:
+                    print("Opción no válida.")
 
-        elif opcion == "3":
-            cultivo = int(input("Selecciona un cultivo para cosechar (1-5): "))
-            if cultivo == 1:
-                cultivo1.cosechar()
-            elif cultivo == 2:
-                cultivo2.cosechar()
-            elif cultivo == 3:
-                cultivo3.cosechar()
-            elif cultivo == 4:
-                cultivo4.cosechar()
-            elif cultivo == 5:
-                cultivo5.cosechar()
-            else:
-                print("Opción no válida.")
+            elif opcion == "4":
+                cultivo = int(input("Selecciona un cultivo para aplicar fertilizante (1-5): "))
+                if cultivo == 1:
+                    cultivo1.fertilizante()
+                elif cultivo == 2:
+                    cultivo2.fertilizante()
+                elif cultivo == 3:
+                    cultivo3.fertilizante()
+                elif cultivo == 4:
+                    cultivo4.fertilizante()
+                elif cultivo == 5:
+                    cultivo5.fertilizante()
+                else:
+                    print("Opción no válida.")
 
-        elif opcion == "4":
-            cultivo = int(input("Selecciona un cultivo para aplicar fertilizante (1-5): "))
-            if cultivo == 1:
-                cultivo1.fertilizante()
-            elif cultivo == 2:
-                cultivo2.fertilizante()
-            elif cultivo == 3:
-                cultivo3.fertilizante()
-            elif cultivo == 4:
-                cultivo4.fertilizante()
-            elif cultivo == 5:
-                cultivo5.fertilizante()
-            else:
-                print("Opción no válida.")
-
-        elif opcion == "5":
-            cultivo = int(input("Selecciona un cultivo para tratar plagas (1-5): "))
-            if cultivo == 1:
-                cultivo1
-if Main_menu.upper() == "B":
-    if __name__ == "__main__":
-        main()
+            elif opcion == "5":
+                cultivo = int(input("Selecciona un cultivo para tratar plagas (1-5): "))
+                if cultivo == 1:
+                    cultivo1
+            elif opcion == "6":
+                Main_menu = input("que desea Gestionar?\nA.Cultivos\nB.Animales")
+    if Main_menu.upper() == "B":
+        if __name__ == "__main__":
+            main()
