@@ -66,11 +66,11 @@ class Cultivo:
         else:
             print(f"{self.nombre} ya esta listo y no necesita tratamiento de plagas.")
 
-cultivo1 = Cultivo("Tomate", 5, 10)
-cultivo2 = Cultivo("Maíz", 7, 15)
-cultivo3 = Cultivo("Manzana", 10, 20)
-cultivo4 = Cultivo("Zanahoria", 6, 12)
-cultivo5 = Cultivo("Papa", 8, 18)
+cultivo1 = Cultivo("Limon", 3, 11)
+cultivo2 = Cultivo("Aguacate", 4, 18)
+cultivo3 = Cultivo("Fresa", 10, 20)
+cultivo4 = Cultivo("Lechuga", 5, 16)
+cultivo5 = Cultivo("Rabano", 7, 15)
 
 
 while True:
