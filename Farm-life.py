@@ -410,7 +410,7 @@ while True:
                 if cultivo == 1:
                     cultivo1
             elif opcion == "6":
-                Main_menu = input("que desea Gestionar?\nA.Cultivos\nB.Animales")
+                break
     if Main_menu.upper() == "B":
         if __name__ == "__main__":
             main()
