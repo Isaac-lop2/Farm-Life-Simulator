@@ -79,7 +79,7 @@ class Animal:
         self.hambre = hambre
         self.felicidad = felicidad
         self.produccion = produccion
-        self.enfermo = False  # Nuevo atributo para indicar si el animal está enfermo
+        self.enfermo = False
 
     def reset_estado(self):
         self.salud = 0
@@ -93,7 +93,7 @@ class Animal:
         self.salud += random.randint(1, 5)
         self.felicidad += random.randint(1, 5)
         self.hambre = max(0, self.hambre)
-        self.enfermo = False  # El animal se cura cuando se alimenta
+        self.enfermo = False
 
     def acariciar(self):
         self.felicidad += random.randint(5, 10)
@@ -110,13 +110,13 @@ class Animal:
         self.produccion = max(0, self.produccion)
         self.hambre = max(0, self.hambre)
 
-        # El animal tiene una probabilidad de enfermarse si no se cuida adecuadamente
+
         if self.salud < 50 and random.random() < 0.3:
             self.enfermo = True
-            self.produccion *= 0.5  # Disminuir la producción si está enfermo
-            self.felicidad *= 0.7  # Disminuir la felicidad si está enfermo
+            self.produccion *= 0.5
+            self.felicidad *= 0.7
 
-        # Restringir los valores dentro del rango apropiado
+
         self.salud = max(0, self.salud)
         self.felicidad = max(0, self.felicidad)
 
@@ -310,17 +310,17 @@ def main():
                     f"{i}. {animal.nombre} - Salud: {animal.salud}, Hambre: {animal.hambre}, Felicidad: {animal.felicidad}, Producción: {animal.produccion}, Estado: {estado}")
         elif opcion == '2':
             alimentar_animales(animales)
-            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal alimentado
+            jugador.aumentar_experiencia(50 * len(animales))
         elif opcion == '3':
             acariciar_animales(animales)
-            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal acariciado
+            jugador.aumentar_experiencia(50 * len(animales))
         elif opcion == '4':
             limpiar_animales(animales)
-            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por cada animal limpiado
+            jugador.aumentar_experiencia(50 * len(animales))
         elif opcion == '5':
             recursos_obtenidos = recolectar_recursos(animales)
             print(f"\nHas recolectado {recursos_obtenidos} recursos de los animales.")
-            jugador.aumentar_experiencia(50 * len(animales))  # Aumentar experiencia por recolectar recursos
+            jugador.aumentar_experiencia(50 * len(animales)) 
         elif opcion == '6':
             jugador.mostrar_experiencia()
         elif opcion == '7':
