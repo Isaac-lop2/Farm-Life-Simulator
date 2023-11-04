@@ -48,7 +48,7 @@ class Cultivo:
 
     def fertilizante(self):
         if self.estado == "en crecimiento":
-            self.tiempo_transcurrido -= 1
+            self.tiempo_transcurrido += 1
             print(f"Has aplicado fertilizante a {self.nombre}. Su crecimiento se ha acelerado.")
         elif self.estado == "sin sembrar":
             print(f"No puedes aplicar fertilizante a {self.nombre} si no ha sido sembrado.")
